@@ -51,9 +51,7 @@ jobs:
 
     - name: Add generated source files to Xcode projects
       run: |
-        pwd
         cd ${{matrix.project}}/scripts
-        pwd
         ruby add_source_to_xcodeproj.rb
 
     - name: Build
