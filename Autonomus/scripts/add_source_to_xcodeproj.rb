@@ -1,11 +1,11 @@
 require 'xcodeproj'
 
-FILE_TO_ADD = 'Autonomus/resources/click.cpp'
+FILE_TO_ADD = 'Autonomus/click.cpp'
 puts "STARTED RUBY SCRIPT"
 
-Dir.glob('Autonomus/projects/*.xcodeproj').each do |proj_path|
+Dir.glob('Autonomus-macOS.xcodeproj').each do |proj_path|
   project = Xcodeproj::Project.open(proj_path)
-  group = project.main_group.find_subpath('resources', true)
+  group = project.main_group.find_subpath('sources', true)
 
   already_present = group.files.any? { |f| f.path == 'click.cpp' }
 
@@ -14,6 +14,7 @@ Dir.glob('Autonomus/projects/*.xcodeproj').each do |proj_path|
   else
     file_ref = group.new_file(FILE_TO_ADD)
     project.targets.each do |target|
+      next unless target.respond_to?(:source_build_phase)
       target.source_build_phase.add_file_reference(file_ref)
     end
     project.save
