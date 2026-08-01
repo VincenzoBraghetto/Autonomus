@@ -45,6 +45,14 @@ jobs:
       run: |
         cd iPlug2/Dependencies
         ./download-prebuilt-libs.sh
+    
+    - name: Install xcodeproj gem
+      run: gem install xcodeproj --no-document
+
+    - name: Add generated source files to Xcode projects
+      run: |
+        cd ${{matrix.project}}/scripts
+        ruby Scripts/add_source_to_xcodeproj.rb
 
     - name: Build
       shell: bash
