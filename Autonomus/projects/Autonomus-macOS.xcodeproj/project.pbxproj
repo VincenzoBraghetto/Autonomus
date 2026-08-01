@@ -798,7 +798,7 @@
 		B8E22A0A220268C4007CBF4C /* IPlugVST3_ProcessorBase.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; name = IPlugVST3_ProcessorBase.cpp; path = ../../iPlug2/IPlug/VST3/IPlugVST3_ProcessorBase.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		B8E22A0B220268C4007CBF4C /* IPlugVST3_ProcessorBase.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_ProcessorBase.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_ProcessorBase.h; sourceTree = "<group>"; tabWidth = 2; };
 		B8EA6B932203868500D23A86 /* IPlugVST3_Common.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = IPlugVST3_Common.h; path = ../../iPlug2/IPlug/VST3/IPlugVST3_Common.h; sourceTree = "<group>"; tabWidth = 2; };
-		F4103244A70BBF7499D77BA2 /* click.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = click.cpp; sourceTree = "<group>"; };
+		F4103244A70BBF7499D77BA2 /* click.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = ../click.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
