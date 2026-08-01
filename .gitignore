@@ -8,5 +8,4 @@ xcuserdata
 */.vs
 *.pem
 mkcert*
-.claude/settings.local.json
 __pycache__
