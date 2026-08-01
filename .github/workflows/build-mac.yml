@@ -53,6 +53,7 @@ jobs:
       run: |
         pwd
         cd ${{matrix.project}}/scripts
+        pwd
         ruby add_source_to_xcodeproj.rb
 
     - name: Build
