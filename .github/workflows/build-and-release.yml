@@ -1,0 +1,165 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Tag"
+        required: true
+      prerelease:
+        description: "Pre-release"
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.ref }}-release
+  cancel-in-progress: true
+
+env:
+  PLUGINVAL_VER: v1.0.4
+  VST3_VER: v3.8.0_build_66
+  CLAP_VER: "main"
+  CLAP_VALIDATOR_VER: "0.3.2"
+
+jobs:
+  build-mac:
+    name: Build macOS (${{ matrix.project }})
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [Autonomus]
+    env:
+      BUILD_DIR: build-mac
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3.3.0
+        with:
+          submodules: recursive
+
+      - name: Cache Prebuilt Libs
+        id: cache-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            iPlug2/Dependencies/Build
+            iPlug2/Dependencies/iPlug
+          key: ${{ runner.os }}-deps-${{ hashFiles('iPlug2/Dependencies/download-prebuilt-libs.sh', 'iPlug2/Dependencies/IGraphics/build-igraphics-libs-mac.sh', 'iPlug2/Dependencies/IGraphics/build-skia-mac.sh') }}
+
+      - name: Get Prebuilt Libs
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          cd iPlug2/Dependencies
+          ./download-prebuilt-libs.sh
+
+      - name: Install xcodeproj gem
+        run: gem install xcodeproj --no-document
+
+      - name: Add generated source files to Xcode projects
+        run: |
+          cd ${{ matrix.project }}
+          ruby scripts/add_source_to_xcodeproj.rb
+
+      - name: Build
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd ${{ matrix.project }}/scripts
+          chmod +x ./makedist-mac.sh
+          ./makedist-mac.sh full zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.project }}-mac
+          path: |
+            ${{ matrix.project }}/${{ env.BUILD_DIR }}/out
+            
+  build-win:
+    name: Build Windows (${{ matrix.project }})
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [Autonomus]
+    env:
+      BUILD_DIR: build-win
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache Prebuilt Libs
+        id: cache-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            iPlug2/Dependencies/Build
+          key: ${{ runner.os }}-deps-${{ hashFiles('iPlug2/Dependencies/download-prebuilt-libs.sh') }}
+
+      - name: Get Prebuilt Libs
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          cd iPlug2/Dependencies
+          ./download-prebuilt-libs.sh
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cd ${{ matrix.project }}\scripts
+          .\makedist-win.bat full zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.project }}-win
+          path: |
+            ${{ matrix.project }}/${{ env.BUILD_DIR }}/out
+            
+  release:
+    name: Create Release
+    needs: [build-mac, build-win]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Flatten and rename zips
+        shell: bash
+        run: |
+          set -eo pipefail
+          mkdir -p release-assets
+          for dir in artifacts/*/; do
+            name=$(basename "$dir")
+            zipfile=$(find "$dir" -maxdepth 2 -iname "*.zip" | head -n1)
+            if [ -n "$zipfile" ]; then
+              cp "$zipfile" "release-assets/${name}.zip"
+            else
+              echo "Could not find .zip in $dir"
+            fi
+          done
+          ls -la release-assets
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          tag_name: ${{ github.event.inputs.version }}
+          name: ${{ github.event.inputs.version }}
+          prerelease: ${{ github.event.inputs.prerelease }}
+          generate_release_notes: true
+          files: |
+            release-assets/*
