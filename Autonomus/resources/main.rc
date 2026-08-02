@@ -199,6 +199,7 @@ BEGIN
     BEGIN
         BLOCK "040004e4"
         BEGIN
+            VALUE "FileDescription", "Autonomus Standalone Executable"
             VALUE "LegalTrademarks", "VST is a trademark of Steinberg Media Technologies GmbH, Audio Unit is a trademark of Apple, Inc."
             VALUE "ProductName", "Autonomus"
         END
