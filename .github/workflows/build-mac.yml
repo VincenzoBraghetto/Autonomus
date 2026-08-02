@@ -68,3 +68,8 @@ jobs:
         name: ${{matrix.project}}-${{env.ARTIFACT_EXT}}
         path: |
           ${{matrix.project}}/${{env.BUILD_DIR}}/out
+    
+    - name: open-app
+      run: |
+        unzip ${{matrix.project}}/${{env.BUILD_DIR}}/out/*.zip -d ./app
+        open -a "./app"
