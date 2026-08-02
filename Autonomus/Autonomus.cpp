@@ -126,7 +126,7 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
                 pParent->AddChildControl(new IURLControl(IRECT(), PLUG_URL_STR, PLUG_URL_STR, aboutBoxText.WithSize(18), COLOR_TRANSPARENT, FONT_COLOR.WithOpacity(0.8f)));
             },
             [](IContainerBase* pParent, const IRECT& r) {
-                const auto boxRECT = r.GetCentredInside(r.W() / 2.1f, r.H() / 3.f);
+                const auto boxRECT = r.GetCentredInside(r.W() / 1.52f, r.H() / 3.f);
                 pParent->GetChild(0)->SetTargetAndDrawRECTs(boxRECT);
                 const auto infoRECT = boxRECT.GetHPadded(-12.f);
                 pParent->GetChild(1)->SetTargetAndDrawRECTs(infoRECT.GetGridCell(0, 3, 1));

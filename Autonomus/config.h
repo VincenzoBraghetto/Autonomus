@@ -40,13 +40,13 @@
 #define AAX_TYPE_IDS_AUDIOSUITE 'IEA1', 'IEA2'
 #define AAX_PLUG_MFR_STR "Vincenzo Braghetto"
 #define AAX_PLUG_NAME_STR "Autonomus\nIPEF"
-#define AAX_PLUG_CATEGORY_STR "utility"
+#define AAX_PLUG_CATEGORY_STR "Utility"
 #define AAX_DOES_AUDIOSUITE 1
 
 #define VST3_SUBCATEGORY "Utility"
 
-#define CLAP_MANUAL_URL "https://iplug2.github.io/manuals/example_manual.pdf"
-#define CLAP_SUPPORT_URL "https://github.com/iPlug2/iPlug2/wiki"
+#define CLAP_MANUAL_URL "https://github.com/VincenzoBraghetto/Autonomus"
+#define CLAP_SUPPORT_URL "https://github.com/VincenzoBraghetto/Autonomus"
 #define CLAP_DESCRIPTION "A metronome that automatically changes the tempo based on a start BPM, end BPM and seconds for new beats."
 #define CLAP_FEATURES "Utility"
 
