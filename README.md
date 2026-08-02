@@ -6,7 +6,7 @@
 
 ## Installation
 
-** TODO **: The app is available as a standalone executable for macOS and Windows:
+The app is available as a standalone executable for **macOS** and **Windows**. To download, go to https://github.com/VincenzoBraghetto/Autonomus/releases and click the ZIP file for your operating system.
 
 
 ## How to use
