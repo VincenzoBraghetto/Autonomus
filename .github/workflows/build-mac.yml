@@ -72,4 +72,6 @@ jobs:
     - name: open-app
       run: |
         unzip ${{matrix.project}}/${{env.BUILD_DIR}}/out/*.zip -d ./app
-        open -a "./app"
+        open -a "./app/${{matrix.project}}.app/Contents/MacOS/${{matrix.project}}"
+        sleep 5
+        screencapture screenshot.png
