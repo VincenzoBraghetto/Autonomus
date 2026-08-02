@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="Autonomus/resources/AutonomusScreenshot.png" width="70%" style="border-radius: 5px" alt="Autonomus Screenshot">
+    <img src="Autonomus/resources/AutonomusScreenshot.png" width="70%" alt="Autonomus Screenshot">
 </p>
 
 **Autonomus** is an automatic metronome that increases or decreases beats per minute automatically based on the selected start BPM, end BPM and how fast the tempo changes.
