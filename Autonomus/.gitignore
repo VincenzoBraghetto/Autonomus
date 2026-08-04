@@ -1,6 +1,7 @@
 *.vs
 *.vscode
 *.png~
+*.kra
 *.exe
 *.sdf
 *.opensdf
