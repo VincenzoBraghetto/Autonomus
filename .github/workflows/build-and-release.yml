@@ -146,7 +146,8 @@ jobs:
             name=$(basename "$dir")
             zipfile=$(find "$dir" -maxdepth 2 -iname "*.zip" | head -n1)
             if [ -n "$zipfile" ]; then
-              cp "$zipfile" "release-assets/${name}.zip"
+              IFS="-" read -r project platform <<< "$name"
+              cp "$zipfile" "release-assets/${project}-${{ github.event.inputs.version }}-${platform}.zip"
             else
               echo "Could not find .zip in $dir"
             fi
