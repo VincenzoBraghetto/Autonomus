@@ -34,7 +34,7 @@
     <LocalDebuggerCommand>$(VST3_X64_HOST_PATH)</LocalDebuggerCommand>
     <LocalDebuggerCommandArguments>$(VST3_X64_COMMAND_ARGS)</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArgumentsHistory>C:\Users\Vincenzo Braghetto\Desktop\Programacion\AutonomusTest\Autonomus\Autonomus.RPP|</LocalDebuggerCommandArgumentsHistory>
+    <LocalDebuggerCommandArgumentsHistory>C:\Users\Vincenzo Braghetto\Desktop\Programacion\AutonomusTest\Autonomus\Autonomus.RPP|C:\Users\Vincenzo Braghetto\Desktop\Programacion\Autonomus\Autonomus\Autonomus.RPP|</LocalDebuggerCommandArgumentsHistory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
     <LocalDebuggerCommand>$(VST3_ARM64EC_HOST_PATH)</LocalDebuggerCommand>

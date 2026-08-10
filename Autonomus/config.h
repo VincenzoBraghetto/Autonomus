@@ -1,5 +1,5 @@
 #define PLUG_NAME "Autonomus"
-#define PLUG_MFR "VincenzoBraghetto"
+#define PLUG_MFR "Vincenzo Braghetto"
 #define PLUG_VERSION_HEX 0x00010000
 #define PLUG_VERSION_STR "1.0.0"
 #define PLUG_UNIQUE_ID 'Atnm'
@@ -10,7 +10,7 @@
 #define PLUG_CLASS_NAME Autonomus
 
 #define BUNDLE_NAME "Autonomus"
-#define BUNDLE_MFR "VincenzoBraghetto"
+#define BUNDLE_MFR "Vincenzo Braghetto"
 #define BUNDLE_DOMAIN "com"
 
 #define SHARED_RESOURCES_SUBPATH "Autonomus"
@@ -47,7 +47,7 @@
 
 #define CLAP_MANUAL_URL "https://github.com/VincenzoBraghetto/Autonomus"
 #define CLAP_SUPPORT_URL "https://github.com/VincenzoBraghetto/Autonomus"
-#define CLAP_DESCRIPTION "A metronome that automatically changes the tempo based on a start BPM, end BPM and seconds for new beats."
+#define CLAP_DESCRIPTION "A metronome that automatically changes the tempo based on a start BPM, end BPM and time between beats."
 #define CLAP_FEATURES "Utility"
 
 #define APP_NUM_CHANNELS 2
