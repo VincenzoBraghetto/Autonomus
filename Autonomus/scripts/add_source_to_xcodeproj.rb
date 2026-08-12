@@ -1,7 +1,7 @@
 require 'xcodeproj'
 
 files_to_add = ['../click.cpp', '../click.hpp']
-PROJ_PATH = "Autonomus-macOS.xcodeproj"
+PROJ_PATH = "projects/Autonomus-macOS.xcodeproj"
 
 project = Xcodeproj::Project.open(PROJ_PATH)
 group = project.main_group.find_subpath('sources', true)
