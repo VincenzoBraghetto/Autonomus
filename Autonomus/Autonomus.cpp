@@ -199,7 +199,7 @@ void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         sample clickSample = 0.;
         if (mClickPlayhead >= 0.0 && mClickPlayhead < (double)mClickBuffer.size())
         {
-            if (this != nullptr && mClickPlayhead == 0.0)
+            if (mClickPlayhead == 0.0)
                 this->FlashLED();
 
             int idx0 = static_cast<int>(mClickPlayhead);
