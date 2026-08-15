@@ -186,10 +186,6 @@ fi
 echo "setting icons"
 echo ""
 
-if [ -d $APP ]; then
-  ./$SCRIPTS/SetFileIcon -image resources/$PLUGIN_NAME.icns -file $APP
-fi
-
 if [ -d $AU ]; then
   ./$SCRIPTS/SetFileIcon -image resources/$PLUGIN_NAME.icns -file $AU
 fi
