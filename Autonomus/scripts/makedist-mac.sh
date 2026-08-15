@@ -206,6 +206,10 @@ if [ -d "${AAX}" ]; then
   ./$SCRIPTS/SetFileIcon -image resources/$PLUGIN_NAME.icns -file "${AAX}"
 fi
 
+if [ -d "${APP}" ]; then
+  ./$SCRIPTS/SetFileIcon -image resources/$PLUGIN_NAME.icns -file "${APP}"
+fi
+
 #---------------------------------------------------------------------------------------------------------
 #strip symbols from binaries
 
