@@ -15,7 +15,7 @@
 
 #define SHARED_RESOURCES_SUBPATH "Autonomus"
 
-#define PLUG_CHANNEL_IO "1-1 2-2"
+#define PLUG_CHANNEL_IO "0-1 0-2"
 
 #define PLUG_LATENCY 0
 #define PLUG_TYPE 0
