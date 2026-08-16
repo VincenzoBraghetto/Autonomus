@@ -3050,7 +3050,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";
@@ -3081,7 +3081,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";
@@ -3112,7 +3112,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";
@@ -3707,7 +3707,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";
@@ -3738,7 +3738,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";
@@ -3769,7 +3769,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "Autonomus-macOS";
-				CODE_SIGN_ENTITLEMENTS = "Autonomus-macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DEAD_CODE_STRIPPING = YES;
 				DSTROOT = "$(APP_PATH)";

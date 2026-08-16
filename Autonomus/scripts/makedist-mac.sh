@@ -261,6 +261,25 @@ if [ $CODESIGN == 1 ]; then
   xattr -cr $VST3 
   codesign --force -s "${DEV_ID_APP_STR}" -v $VST3 --deep --strict
   #---------------------------------------------------------------------------------------------------------
+else
+    echo "ad-hoc re-signing binaries (no DEV_ID configured)"
+    echo ""
+
+    if [ -d $APP ]; then
+        codesign --force --deep -s - --options runtime "$APP"
+    fi
+    if [ -d $AU ]; then
+        codesign --force --deep -s - "$AU"
+    fi
+    if [ -d $VST2 ]; then
+        codesign --force --deep -s - "$VST2"
+    fi
+    if [ -d $VST3 ]; then
+        codesign --force --deep -s - "$VST3"
+    fi
+    if [ -d $CLAP ]; then
+        codesign --force --deep -s - "$CLAP"
+    fi
 fi
 
 if [ $BUILD_INSTALLER == 1 ]; then

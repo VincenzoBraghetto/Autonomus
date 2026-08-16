@@ -10,7 +10,7 @@
 #define PLUG_CLASS_NAME Autonomus
 
 #define BUNDLE_NAME "Autonomus"
-#define BUNDLE_MFR "Vincenzo Braghetto"
+#define BUNDLE_MFR "VincenzoBraghetto"
 #define BUNDLE_DOMAIN "com"
 
 #define SHARED_RESOURCES_SUBPATH "Autonomus"
