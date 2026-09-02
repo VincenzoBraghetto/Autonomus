@@ -15,7 +15,12 @@ enum EParams
     kNumParams
 };
 
-enum EControlTags { kLedTag, kAboutBoxTag };
+enum ETags 
+{ 
+    kLedTag, 
+    kLedMsgTag, 
+    kAboutBoxTag 
+};
 
 using namespace iplug;
 using namespace igraphics;
@@ -38,6 +43,12 @@ class CustomLED : public ILEDControl
             IBlend b = {EBlend::Default, v};
             g.PathFill(IPattern::CreateRadialGradient(mRECT.MW(), mRECT.MH(), mRECT.W()/2.f, {{c, 0.f}, {COLOR_TRANSPARENT, 1.f}}), {}, &b);
         }
+        
+        void OnMsgFromDelegate(int msgTag, int dataSize, const void* pData) override
+        {
+            if (msgTag == kLedMsgTag)
+                TriggerWithDecay(1000);
+        }
     
     private:
         IColor innerColor;
@@ -52,7 +63,6 @@ class Autonomus final : public Plugin
         double mClickSampleRate = 48000.0;
         std::vector<sample> mClickBuffer;
         int mClickNumChannels = 1;
-        void FlashLED();
 
     public:
         Autonomus(const InstanceInfo& info);

@@ -138,14 +138,6 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
 #endif
 }
 
-#if IPLUG_EDITOR
-void Autonomus::FlashLED()
-{
-    if (GetUI())
-        GetUI()->GetControlWithTag(kLedTag)->As<CustomLED>()->TriggerWithDecay(1000); 
-};
-#endif
-
 #if IPLUG_DSP
 void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
@@ -200,7 +192,7 @@ void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         if (mClickPlayhead >= 0.0 && mClickPlayhead < (double)mClickBuffer.size())
         {
             if (mClickPlayhead == 0.0)
-                this->FlashLED();
+                SendControlMsgFromDelegate(kLedTag, kLedMsgTag);
 
             int idx0 = static_cast<int>(mClickPlayhead);
             int idx1 = std::min(idx0 + 1, (int)mClickBuffer.size() - 1);
