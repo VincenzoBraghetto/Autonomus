@@ -47,6 +47,7 @@ jobs:
         run: |
           cd iPlug2/Dependencies
           ./download-prebuilt-libs.sh
+
       - name: Install xcodeproj gem
         run: gem install xcodeproj --no-document
 
@@ -54,7 +55,7 @@ jobs:
         run: |
           cd ${{ matrix.project }}
           ruby scripts/add_source_to_xcodeproj.rb
-          
+
       - name: Build
         shell: bash
         run: |
@@ -62,7 +63,7 @@ jobs:
           cd ${{ matrix.project }}/scripts
           chmod +x ./makedist-mac.sh
           ./makedist-mac.sh full zip
-          
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
