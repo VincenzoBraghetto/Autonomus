@@ -22,60 +22,60 @@ env:
   CLAP_VALIDATOR_VER: "0.3.2"
 
 jobs:
-  build-mac:
-    name: Build macOS (${{ matrix.project }})
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [Autonomus]
-    env:
-      BUILD_DIR: build-mac
+#   build-mac:
+#     name: Build macOS (${{ matrix.project }})
+#     runs-on: macos-latest
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         project: [Autonomus]
+#     env:
+#       BUILD_DIR: build-mac
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3.3.0
-        with:
-          submodules: recursive
+#     steps:
+#       - name: Check out repository
+#         uses: actions/checkout@v3.3.0
+#         with:
+#           submodules: recursive
 
-      - name: Cache Prebuilt Libs
-        id: cache-deps
-        uses: actions/cache@v3
-        with:
-          path: |
-            iPlug2/Dependencies/Build
-            iPlug2/Dependencies/iPlug
-          key: ${{ runner.os }}-deps-${{ hashFiles('iPlug2/Dependencies/download-prebuilt-libs.sh', 'iPlug2/Dependencies/IGraphics/build-igraphics-libs-mac.sh', 'iPlug2/Dependencies/IGraphics/build-skia-mac.sh') }}
+#       - name: Cache Prebuilt Libs
+#         id: cache-deps
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             iPlug2/Dependencies/Build
+#             iPlug2/Dependencies/iPlug
+#           key: ${{ runner.os }}-deps-${{ hashFiles('iPlug2/Dependencies/download-prebuilt-libs.sh', 'iPlug2/Dependencies/IGraphics/build-igraphics-libs-mac.sh', 'iPlug2/Dependencies/IGraphics/build-skia-mac.sh') }}
 
-      - name: Get Prebuilt Libs
-        if: steps.cache-deps.outputs.cache-hit != 'true'
-        shell: bash
-        run: |
-          cd iPlug2/Dependencies
-          ./download-prebuilt-libs.sh
+#       - name: Get Prebuilt Libs
+#         if: steps.cache-deps.outputs.cache-hit != 'true'
+#         shell: bash
+#         run: |
+#           cd iPlug2/Dependencies
+#           ./download-prebuilt-libs.sh
 
-      - name: Install xcodeproj gem
-        run: gem install xcodeproj --no-document
+#       - name: Install xcodeproj gem
+#         run: gem install xcodeproj --no-document
 
-      - name: Add generated source files to Xcode projects
-        run: |
-          cd ${{ matrix.project }}
-          ruby scripts/add_source_to_xcodeproj.rb
+#       - name: Add generated source files to Xcode projects
+#         run: |
+#           cd ${{ matrix.project }}
+#           ruby scripts/add_source_to_xcodeproj.rb
 
-      - name: Build
-        shell: bash
-        run: |
-          set -eo pipefail
-          cd ${{ matrix.project }}/scripts
-          chmod +x ./makedist-mac.sh
-          ./makedist-mac.sh full zip
+#       - name: Build
+#         shell: bash
+#         run: |
+#           set -eo pipefail
+#           cd ${{ matrix.project }}/scripts
+#           chmod +x ./makedist-mac.sh
+#           ./makedist-mac.sh full zip
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.project }}-mac
-          path: |
-            ${{ matrix.project }}/${{ env.BUILD_DIR }}/out
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: ${{ matrix.project }}-mac
+#           path: |
+#             ${{ matrix.project }}/${{ env.BUILD_DIR }}/out
             
   build-win:
     name: Build Windows (${{ matrix.project }})
