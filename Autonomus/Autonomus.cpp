@@ -138,6 +138,37 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
 #endif
 }
 
+#if IPLUG_EDITOR
+void Autonomus::OnIdle()
+{
+    IPlugAPP::OnIdle();
+    
+    #ifdef OS_WIN
+    if (!mWindowCentered)
+    {
+        extern HWND gHWND;
+        if (!gHWND) return;
+        RECT rc;
+        GetWindowRect(gHWND, &rc);
+        int width  = rc.right - rc.left;
+        int height = rc.bottom - rc.top;
+
+        HMONITOR hMonitor = MonitorFromWindow(gHWND, MONITOR_DEFAULTTONEAREST);
+        MONITORINFO mi = { sizeof(mi) };
+        if (GetMonitorInfo(hMonitor, &mi))
+        {
+            const RECT& work = mi.rcWork;
+            int x = work.left + (work.right - work.left - width)  / 2;
+            int y = work.top  + (work.bottom - work.top - height) / 2;
+
+            SetWindowPos(gHWND, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+        }
+        mWindowCentered = true;
+    }
+    #endif
+}
+#endif
+
 #if IPLUG_DSP
 void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {

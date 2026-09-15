@@ -63,10 +63,15 @@ class Autonomus final : public Plugin
         double mClickSampleRate = 48000.0;
         std::vector<sample> mClickBuffer;
         int mClickNumChannels = 1;
+        bool mWindowCentered = false;
 
     public:
         Autonomus(const InstanceInfo& info);
 
+    #if IPLUG_EDITOR
+        void OnIdle() override;
+    #endif
+    
     #if IPLUG_DSP
         void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
     #endif
