@@ -203,11 +203,6 @@ void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
                         tempoParam->Set(currentTempo - 1);
                         SendParameterValueFromDelegate(kTempo, tempoParam->GetNormalized(), true);
                     }                    
-                    else
-                    {
-                        isPlayingParam->Set(0.);
-                        SendParameterValueFromDelegate(kIsPlaying, isPlayingParam->GetNormalized(), true);
-                    }
                 }
             }
 
