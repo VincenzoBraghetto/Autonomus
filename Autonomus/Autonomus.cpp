@@ -48,7 +48,8 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
 
 #if IPLUG_EDITOR
     mMakeGraphicsFunc = [&]() { return MakeGraphics(*this, PLUG_WIDTH, PLUG_HEIGHT, PLUG_FPS, GetScaleForScreen(PLUG_WIDTH, PLUG_HEIGHT)); };
-    mLayoutFunc = [&](IGraphics* pGraphics) {
+    mLayoutFunc = [&](IGraphics* pGraphics) 
+    {
         pGraphics->LoadFont("Roboto-Regular", READEX_FN);
         pGraphics->AttachBackground(BACKGROUND_FN);
         pGraphics->EnableMouseOver(true);

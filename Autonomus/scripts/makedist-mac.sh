@@ -354,6 +354,7 @@ else
 
   mkdir -p build-mac/zip
   cp $GITHUB_WORKSPACE/LICENSE.txt build-mac/zip/
+  cp $GITHUB_WORKSPACE/THIRD_PARTY_LICENSES.txt build-mac/zip/
 
   if [ -d $APP ]; then
     cp -R $APP build-mac/zip/$PLUGIN_NAME.app

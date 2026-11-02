@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Inglï¿½s (Reino Unido) resources
+// Inglés (Reino Unido) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
@@ -146,7 +146,6 @@ END
 3 TEXTINCLUDE 
 BEGIN
     "#include ""..\\config.h""\r\n"
-    "ROBOTO_FN TTF ROBOTO_FN\r\n"
     "READEX_FN TTF READEX_FN\r\n"
     "BACKGROUND_FN PNG BACKGROUND_FN\0"
 END
@@ -186,6 +185,9 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,0,0
+ PRODUCTVERSION 0,0,0,0
+ FILEFLAGSMASK 0x0L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
 #else
@@ -210,7 +212,7 @@ BEGIN
     END
 END
 
-#endif    // Inglï¿½s (Reino Unido) resources
+#endif    // Inglés (Reino Unido) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -221,7 +223,6 @@ END
 // Generated from the TEXTINCLUDE 3 resource.
 //
 #include "..\config.h"
-ROBOTO_FN TTF ROBOTO_FN
 READEX_FN TTF READEX_FN
 BACKGROUND_FN PNG BACKGROUND_FN
 /////////////////////////////////////////////////////////////////////////////

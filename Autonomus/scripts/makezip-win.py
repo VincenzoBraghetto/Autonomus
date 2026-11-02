@@ -85,6 +85,7 @@ def main():
     # Add standalone executables
     files = [
       projectpath + "\\..\\LICENSE.txt",
+      projectpath + "\\..\\THIRD_PARTY_LICENSES.txt",
       projectpath + "\\build-win\\Autonomus_x64.exe",
       projectpath + "\\build-win\\Autonomus_ARM64EC.exe",
     ]

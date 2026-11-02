@@ -7,6 +7,7 @@ const int kNumPresets = 1;
 
 enum EParams
 {
+    kGain,
     kTempo,
     kIsPlaying,
     kSecondsPerIncrement,
