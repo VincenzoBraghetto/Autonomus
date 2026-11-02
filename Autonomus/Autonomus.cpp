@@ -68,7 +68,8 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
 
         pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false, COLOR_TRANSLUCENT, FG_COLOR, PR_COLOR, 30.f);
 
-        const IVColorSpec baseColors = {
+        const IVColorSpec baseColors = 
+        {
             COLOR_TRANSPARENT, // Background
             FG_COLOR, // Foreground
             PR_COLOR, // Pressed
@@ -78,7 +79,8 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
             FR_COLOR_TRANSLUCENT, // Extra 1
         };
 
-        const IVColorSpec switchColors = {
+        const IVColorSpec switchColors = 
+        {
             COLOR_TRANSPARENT, // Background
             FR_COLOR, // Foreground
             FR_COLOR, // Pressed
@@ -87,7 +89,8 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
             FG_COLOR, // Shadow
         };
 
-        const IVStyle style {
+        const IVStyle style 
+        {
             true, // Show label
             true, // Show value
             baseColors,
@@ -110,12 +113,14 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
         pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(2, 1, 3).GetCentredInside(knobWidth, knobHeight), kSecondsPerIncrement, knobsStyle));
 
         pGraphics->AttachControl(new IVButtonControl(innerBounds.GetFromTRHC(16, 16).GetPadded(2.f), SplashClickActionFunc, "i", style.WithDrawShadows(false).WithLabelText(aboutBoxText.WithAlign(EAlign::Center)), true, true, EVShape::Ellipse))
-        ->SetAnimationEndActionFunction([pGraphics](IControl* pCaller) {
+        ->SetAnimationEndActionFunction([pGraphics](IControl* pCaller) 
+        {
             pGraphics->GetControlWithTag(kAboutBoxTag)->As<IAboutBoxControl>()->Show();
         });
 
         pGraphics->AttachControl(new IAboutBoxControl(pGraphics->GetBounds(), FG_COLOR.WithOpacity(0.3f),
-            [&](IContainerBase* pParent, const IRECT& r) {
+            [&](IContainerBase* pParent, const IRECT& r) 
+            {
                 pParent->AddChildControl(new IVPanelControl(IRECT(), "", style.WithDrawShadows(false).WithRoundness(0.03f)));
 
                 WDL_String infoStr {"Autonomus v"};
@@ -125,7 +130,8 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
                 pParent->AddChildControl(new ITextControl(IRECT(), PLUG_COPYRIGHT_STR, aboutBoxText.WithVAlign(EVAlign::Top)));
                 pParent->AddChildControl(new IURLControl(IRECT(), PLUG_URL_STR, PLUG_URL_STR, aboutBoxText.WithSize(18), COLOR_TRANSPARENT, FONT_COLOR.WithOpacity(0.8f)));
             },
-            [](IContainerBase* pParent, const IRECT& r) {
+            [](IContainerBase* pParent, const IRECT& r) 
+            {
                 const auto boxRECT = r.GetCentredInside(r.W() / 1.52f, r.H() / 3.f);
                 pParent->GetChild(0)->SetTargetAndDrawRECTs(boxRECT);
                 const auto infoRECT = boxRECT.GetHPadded(-12.f);
