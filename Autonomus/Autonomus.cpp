@@ -23,6 +23,7 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
     const int MIN_BPM = 1;
     const int MAX_BPM = 300;
 
+    GetParam(kGain)->InitDouble("Gain", 100., 0., 100., 1., "%");
     GetParam(kTempo)->InitInt("Current BPM", 120, MIN_BPM, MAX_BPM, "BPM");
     GetParam(kEndBpm)->InitInt("End BPM", MAX_BPM, MIN_BPM, MAX_BPM, "BPM");
     GetParam(kIsPlaying)->InitBool("Play", false);
@@ -53,12 +54,13 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
         pGraphics->LoadFont("Roboto-Regular", READEX_FN);
         pGraphics->AttachBackground(BACKGROUND_FN);
         pGraphics->EnableMouseOver(true);
-        
-        const int switchWidth = 90;
-        const int switchHeight = 50;
-        const int ledSize = 20;
-        const int knobWidth = 180;
-        const int knobHeight = 140;
+
+        const float switchesRowWidth = 0.5f * PLUG_WIDTH;
+        const float switchesRowHeight = 0.125f * PLUG_HEIGHT;
+        const float switchWidth = 0.15f * PLUG_WIDTH;
+        const float ledSize = 0.033f * PLUG_WIDTH;
+        const float knobWidth = 0.77f * PLUG_WIDTH;
+        const float knobHeight = 0.35f * PLUG_HEIGHT;
         
         const IColor FG_COLOR = IColor::FromColorCodeStr("#092635");
         const IColor PR_COLOR = FG_COLOR.WithOpacity(0.9f);
@@ -84,10 +86,21 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
         {
             COLOR_TRANSPARENT, // Background
             FR_COLOR, // Foreground
+            FR_COLOR.WithOpacity(0.65f), // Pressed
+            COLOR_TRANSPARENT, // Frame
+            COLOR_TRANSPARENT, // Highlight
+            FG_COLOR, // Shadow
+        };
+
+        const IVColorSpec sliderColors = 
+        {
+            COLOR_TRANSPARENT, // Background
+            FR_COLOR, // Foreground
             FR_COLOR, // Pressed
             COLOR_TRANSPARENT, // Frame
             COLOR_TRANSPARENT, // Highlight
             FG_COLOR, // Shadow
+            FG_COLOR // Extra 1
         };
 
         const IVStyle style 
@@ -102,16 +115,19 @@ Autonomus::Autonomus(const InstanceInfo& info) : iplug::Plugin(info, MakeConfig(
         const IRECT innerBounds = pGraphics->GetBounds().GetPadded(-10.f);
 
         const IVStyle switchesStyle = style.WithRoundness(0.9f).WithShowValue(false).WithDrawShadows(false).WithFrameThickness(9).WithColors(switchColors);
-        const IRECT switches = innerBounds.GetCentredInside(300, switchHeight).GetVShifted(-40);
-        pGraphics->AttachControl(new IVSlideSwitchControl(switches.GetGridCell(0, 1, 3).GetCentredInside(switchWidth, switchHeight), kIsPlaying, "", switchesStyle, false));
+        const IRECT switches = innerBounds.GetCentredInside(switchesRowWidth, switchesRowHeight).GetVShifted(-40);
+        pGraphics->AttachControl(new IVSlideSwitchControl(switches.GetGridCell(0, 1, 3).GetCentredInside(switchWidth, switchesRowHeight), kIsPlaying, "", switchesStyle, false));
         pGraphics->AttachControl(new CustomLED(switches.GetGridCell(1, 1, 3).GetCentredInside(ledSize), FG_COLOR), kLedTag);
-        pGraphics->AttachControl(new IVSlideSwitchControl(switches.GetGridCell(2, 1, 3).GetCentredInside(switchWidth, switchHeight), kIsBpmFrozen, "", switchesStyle, false));
+        pGraphics->AttachControl(new IVSlideSwitchControl(switches.GetGridCell(2, 1, 3).GetCentredInside(switchWidth, switchesRowHeight), kIsBpmFrozen, "", switchesStyle, false));
         
         const IVStyle knobsStyle = style.WithDrawShadows(false).WithWidgetFrac(0.95f).WithDrawFrame(false).WithColor(EVColor::kFR, FR_COLOR);
-        const IRECT knobs = innerBounds.GetCentredInside(460, knobHeight).GetVShifted(100);
-        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(0, 1, 3).GetCentredInside(knobWidth, knobHeight), kTempo, knobsStyle));
-        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(1, 1, 3).GetCentredInside(knobWidth, knobHeight), kEndBpm, knobsStyle));
-        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(2, 1, 3).GetCentredInside(knobWidth, knobHeight), kSecondsPerIncrement, knobsStyle));
+        const IRECT knobs = innerBounds.GetCentredInside(knobWidth, knobHeight).GetVShifted(100);
+        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(0, 1, 3), kTempo, knobsStyle));
+        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(1, 1, 3), kEndBpm, knobsStyle));
+        pGraphics->AttachControl(CustomKnob(knobs.GetGridCell(2, 1, 3), kSecondsPerIncrement, knobsStyle));
+
+        const IVStyle sliderStyle = style.WithColors(sliderColors).WithDrawFrame(false).WithDrawShadows(false).WithValueText(IText(15, EVAlign::Bottom, FONT_COLOR)).WithRoundness(10.f);
+        pGraphics->AttachControl(new IVSliderControl(innerBounds.FracRectHorizontal(0.1f).GetVPadded(-90.f), kGain, "", sliderStyle, true, EDirection::Vertical, 3.f, 7.f, 2.75f));
 
         pGraphics->AttachControl(new IVButtonControl(innerBounds.GetFromTRHC(16, 16).GetPadded(2.f), SplashClickActionFunc, "i", style.WithDrawShadows(false).WithLabelText(aboutBoxText.WithAlign(EAlign::Center)), true, true, EVShape::Ellipse))
         ->SetAnimationEndActionFunction([pGraphics](IControl* pCaller) 
@@ -181,6 +197,7 @@ void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
     IParam* isPlayingParam = GetParam(kIsPlaying);
     IParam* tempoParam = GetParam(kTempo);
+    const double gain = GetParam(kGain)->Value() / 100.;
     const bool isBpmFrozen = GetParam(kIsBpmFrozen)->Bool();
     const double sampleRate = GetSampleRate();
     const double clickPlaybackRate = mClickSampleRate / sampleRate;
@@ -240,7 +257,7 @@ void Autonomus::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
         }
 
         for (int c = 0; c < NOutChansConnected(); c++)
-            outputs[c][s] = clickSample;        
+            outputs[c][s] = clickSample * gain;       
     }
 }  
 #endif
