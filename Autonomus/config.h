@@ -1,7 +1,7 @@
 #define PLUG_NAME "Autonomus"
 #define PLUG_MFR "Vincenzo Braghetto"
 #define PLUG_VERSION_HEX 0x00010000
-#define PLUG_VERSION_STR "1.0.0"
+#define PLUG_VERSION_STR "1.0.1"
 #define PLUG_UNIQUE_ID 'Atnm'
 #define PLUG_MFR_ID 'vbrg'
 #define PLUG_URL_STR "https://github.com/VincenzoBraghetto/Autonomus"
