@@ -24,6 +24,6 @@ Autonomus features the following controls:
 
 - **Current BPM:** shows the current tempo and also functions as the starting point for the metronome.
 
-- **End BPM:** the tempo that the metronome will stop at. You can set it to a value below the current BPM too.
+- **End BPM:** the tempo where the metronome will stop changing the BPM. You can set it to a value below the current BPM too.
 
 - **Time per Beat Increase:** the number of seconds it takes to add or subtract a beat from the current BPM (for example, Time per Beat Increase at 0.5 is equivalent to increasing the tempo by 2 every second).
