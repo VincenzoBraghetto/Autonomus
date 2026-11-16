@@ -20,6 +20,8 @@ Autonomus features the following controls:
 
 - **Freeze BPM:** this setting freezes the BPM and keeps it constant, making it a normal metronome. You can unfreeze the tempo at any time and it will continue where it left off.
 
+- **Gain:** controls the volume of the metronome click.
+
 - **Current BPM:** shows the current tempo and also functions as the starting point for the metronome.
 
 - **End BPM:** the tempo that the metronome will stop at. You can set it to a value below the current BPM too.
